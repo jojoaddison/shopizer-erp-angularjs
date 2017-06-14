@@ -20,4 +20,5 @@ export class Order {
     total : string;
     status : string;
     channel : string;
+    tags : string;
 }

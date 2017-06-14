@@ -119,6 +119,7 @@ public class OrderPopulator implements DataPopulator<RESTOrder, Order> {
 		
 		
 		target.setCode(String.valueOf(source.getOrderNumber()));
+		target.setTags(source.getTags());
 		return target;
 		
 
@@ -203,6 +204,8 @@ public class OrderPopulator implements DataPopulator<RESTOrder, Order> {
 		if(source.getDeliveryEstimated() != null) {
 			target.setDeliveryEstimated(DateUtil.formatDate(source.getDeliveryEstimated()));
 		}
+		
+		target.setTags(source.getTags());
 		
 
 		return target;

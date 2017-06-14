@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Country } from '../shared/objects/country';
 import { Zone } from '../shared/objects/zone';
+import { KeyValue } from '../shared/objects/keyValue';
 import { OrderReferences } from '../shared/objects/orderReferences';
 import { AuthenticationService } from './index';
 import 'rxjs/add/operator/map'
@@ -70,7 +71,32 @@ export class ReferencesService {
     
         return this.http.get(url, options)
             .map((resp: Response) => {
-                return resp.json() as OrderReferences;
+                return resp.json();
+            });
+
+    }
+  
+    public getOrderTags = (lang: string): Observable<any> => {
+        
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+    
+        
+        console.log('Before calling tags service order');
+        var params = 'lang=' + lang;
+        
+        let token = user.token;
+        
+        console.log("Setting token in tags service " + token);
+        
+        let headers = new Headers({ 'Authorization': token });
+        let options = new RequestOptions({ headers: headers });
+        var url = environment.baseUrl + '/api/tags/order/?' + params
+        
+        console.log('Order tags url ' + url);
+    
+        return this.http.get(url, options)
+            .map((resp: Response) => {
+                return resp.json();
             });
 
     }

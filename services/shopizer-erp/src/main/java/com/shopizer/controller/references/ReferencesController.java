@@ -3,10 +3,13 @@ package com.shopizer.controller.references;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.shopizer.business.entity.order.OrderStatusEnum;
+import com.shopizer.business.entity.order.OrderTagEnum;
 import com.shopizer.business.entity.order.OrderTotalTypeEnum;
 import com.shopizer.business.entity.order.OrderTotalVariationEnum;
 import com.shopizer.business.entity.references.Country;
@@ -169,6 +173,25 @@ public class ReferencesController {
 		
 	    HttpHeaders headers = new HttpHeaders();
 	    return new ResponseEntity<RESTOrderReferences>(references, headers, HttpStatus.OK);
+
+	}
+	
+	@GetMapping(value = "/api/tags/order")
+	@ResponseBody
+	public ResponseEntity<List<String>> getOrderTags(@RequestParam(value = "lang", required=false) String lang, Locale locale, UriComponentsBuilder ucBuilder) throws Exception  {
+	    
+		if(StringUtils.isBlank(lang)) {
+			lang = Constants.DEFAULT_LANGUAGE;
+		}
+		
+		Locale l = new Locale(lang);
+	
+		List<String> enumNames = Stream.of(OrderTagEnum.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+		
+	    HttpHeaders headers = new HttpHeaders();
+	    return new ResponseEntity<List<String>>(enumNames, headers, HttpStatus.OK);
 
 	}
 

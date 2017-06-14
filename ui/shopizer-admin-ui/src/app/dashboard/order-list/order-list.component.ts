@@ -13,7 +13,7 @@ import 'datatables.net'
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: [
-              './order-list.component.sass'
+              './order-list.component.css'
               ],
   providers: [OrderService]
 })

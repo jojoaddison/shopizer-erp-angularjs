@@ -38,6 +38,8 @@ public class RESTOrder extends RESTEntity {
 	private String status;
 	
 	private String channel;
+	
+	private String tags;
 
 	public String getEstimated() {
 		return estimated;
@@ -166,5 +168,15 @@ public class RESTOrder extends RESTEntity {
 	public void setDeliveryEstimated(String deliveryEstimated) {
 		this.deliveryEstimated = deliveryEstimated;
 	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	
+	
 
 }

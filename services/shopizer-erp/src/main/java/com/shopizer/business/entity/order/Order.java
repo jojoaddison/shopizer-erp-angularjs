@@ -39,6 +39,8 @@ public class Order extends Entity {
 	private String creator;
 	
 	private String lastUpdator;
+	
+	private String tags;
 
 	public Long getNumber() {
 		return number;
@@ -142,6 +144,14 @@ public class Order extends Entity {
 
 	public void setDeliveryEstimated(Date deliveryEstimated) {
 		this.deliveryEstimated = deliveryEstimated;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 

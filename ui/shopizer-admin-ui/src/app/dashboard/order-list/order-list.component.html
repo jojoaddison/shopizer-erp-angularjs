@@ -28,6 +28,7 @@
         <th>Order total</th>
         <th>Order status</th>
         <th>First estimation</th>
+        <th>Tags</th>
         <th>Edit</th>
       </tr>
       </thead>
@@ -38,6 +39,7 @@
 		        <td>${{row.total}}</td>
 		        <td>{{row.status}}</td>
 		        <td>{{row.estimated}}</td>
+		        <td class='tags'>{{row.tags}}</td>
 		        <td><a href="/dashboard/order;id={{row.id}}" class="btn btn-default">Edit</a>
 		        <!--
 		        <td>{{row.firstName}}</td>

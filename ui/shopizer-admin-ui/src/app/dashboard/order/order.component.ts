@@ -19,7 +19,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 @Component({
   selector: 'order-component',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.sass'],
+  styleUrls: ['./order.component.css'],
   providers: [CustomerService, OrderService, ReferencesService, DatePipe, UserService]
 })
 export class OrderComponent implements OnInit {
@@ -48,6 +48,8 @@ export class OrderComponent implements OnInit {
     orderComments : OrderComment[] = [];
     orderTotals : OrderTotal[] = [];
     users : User[] = [];
+    tags: string[];
+    tagsDisplayed: string[];
     
     orderForm : FormGroup;//form
     
@@ -102,7 +104,9 @@ export class OrderComponent implements OnInit {
             }
          });
         this.getReferences();
+        this.getTags();
         this.buildForm();
+        
         
     }
     
@@ -138,7 +142,48 @@ export class OrderComponent implements OnInit {
                         console.log(err);
           })
     }
-    
+  
+    //get different tags from enum for order
+    getTags(): void {
+        this.referencesService.getOrderTags('fr')
+            .subscribe(
+                tags => {
+                    this.tags = tags;
+                    //console.log('*** LOADED TAGS *** ' + this.tags);
+                }, //Bind to view
+                            err => {
+                        // Log errors if any
+                        console.log(err);
+          })
+    }
+    // adds tag to the order
+    addTag(tag: string) {
+     
+       if(this.order.tags)
+       {
+         this.order.tags += ',' + tag;
+       }
+       else
+       {
+         this.order.tags = '';
+         this.order.tags = tag; 
+       }
+       this.formatTags();
+    }
+  
+    formatTags(): void {
+         this.tagsDisplayed = this.order.tags.split(',');
+    }
+  
+    // removes tag from order      
+    removeTag(tag: string): void {
+      var index = this.tagsDisplayed.indexOf(tag, 0);
+      if (index > -1) {
+         this.tagsDisplayed.splice(index, 1);
+      }
+      this.order.tags = this.tagsDisplayed.toString();
+    }
+
     //user list
     getUsers(): void  {
         
@@ -278,6 +323,7 @@ export class OrderComponent implements OnInit {
 
                  this.total = '$' + order.total;
                  this.totalsChanged();
+                 this.formatTags();
 
             }, //Bind to view
                         err => {
@@ -337,6 +383,7 @@ export class OrderComponent implements OnInit {
         }
         
         this.order.orderTotals = this.orderTotals;
+        
         
         console.log('Submited order -> ' + JSON.stringify(this.order));
 

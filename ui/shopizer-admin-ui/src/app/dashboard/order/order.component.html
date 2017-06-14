@@ -114,6 +114,27 @@
 								</span>
 							</td>
 						</tr>
+						<tr>
+							<td>Tags </td>
+							<td>&nbsp;</td>
+							<td>
+								<span *ngFor="let y of tagsDisplayed" class='tag' (click)="removeTag(y)">
+ 									{{y}}
+								</span>		
+							</td>
+							
+						</tr>
+						<tr>
+							<td><button type="button" (click)="addTag(tagSelected.value)"  class="btn btn-secondary">Add Tag</button> </td>
+							<td>&nbsp;</td>
+							<td>		
+								<select class="form-control"  #tagSelected>
+  									<option *ngFor="let x of tags"  value="{{x}}">
+    									{{x}}
+  									</option>
+								</select>
+							</td>
+						</tr>
 					</table>
 					
 				</div>

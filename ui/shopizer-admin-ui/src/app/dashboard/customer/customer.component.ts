@@ -26,9 +26,9 @@ export class CustomerComponent implements OnInit {
     submitted = false;
     active = true;
     
-    customerForm : FormGroup;//form
-    //customerForm: NgForm;
-    customer = new Customer();//submitted customer
+    customerForm : FormGroup;// form
+    // customerForm: NgForm;
+    customer = new Customer();// submitted customer
 
     constructor(
         private referencesService : ReferencesService,
@@ -44,10 +44,10 @@ export class CustomerComponent implements OnInit {
             .subscribe(
                 countries => {
                     this.countries = countries;
-                    //console.log('this.countries=' + this.countries);
-                    //console.log('this.countries.length=' + this.countries.length);
-                    //console.log('this.countries[12].name=' + this.countries[12].name);
-                }, //Bind to view
+                    // console.log('this.countries=' + this.countries);
+                    // console.log('this.countries.length=' + this.countries.length);
+                    // console.log('this.countries[12].name=' + this.countries[12].name);
+                }, // Bind to view
                             err => {
                         // Log errors if any
                         console.log(err);
@@ -64,7 +64,7 @@ export class CustomerComponent implements OnInit {
                 } else {
                     this.showProvincesList = false;
                 }
-            }, //Bind to view
+            }, // Bind to view
                         err => {
                     // Log errors if any
                     console.log(err);
@@ -79,13 +79,13 @@ export class CustomerComponent implements OnInit {
             }
          });
         
-        //console.log('Init CustomerComponent');
+        // console.log('Init CustomerComponent');
         this.getCountries();
         
-        //get the list of provinces
+        // get the list of provinces
         this.getZones(this.selectedCountry.code);
-        //http://stackoverflow.com/questions/40256658/getting-an-object-array-from-an-angularjs-2-service
-        //console.log('Response from get countries ' + this.countries);
+        // http://stackoverflow.com/questions/40256658/getting-an-object-array-from-an-angularjs-2-service
+        // console.log('Response from get countries ' + this.countries);
         this.buildForm();
     }
     
@@ -96,44 +96,44 @@ export class CustomerComponent implements OnInit {
             ]
           ],
           'lastName': [this.customer.lastName, [
-               Validators.required                                  
+               Validators.required
             ]
           ],
            'phoneNumber': [this.customer.phoneNumber, [
-                Validators.required                                  
+                Validators.required
               ]
            ]
         });
         this.customerForm.valueChanges
         .subscribe(data => this.onValueChanged(data));
         this.onValueChanged(); // (re)set validation messages now
-        //console.log("-- EXITING BUILD FORM --");
+        // console.log("-- EXITING BUILD FORM --");
     }
-    
+
     onSelect(code) {
-        //console.log('Selected country code ' + code);
+        // console.log('Selected country code ' + code);
         this.getZones(code);
     }
     
     onSubmit(value: any, event: Event):void{
         event.preventDefault();
-        //console.log("******** FORM SUBMITTED ********");
+        // console.log("******** FORM SUBMITTED ********");
         this.submitted = true;
         this.customer = value;
-        //console.log('Customer id ' + this.customer.id);
+        // console.log('Customer id ' + this.customer.id);
         if(this.customer.id == null || this.customer.id == '') {
             this.customerService.create(this.customer)
                     .subscribe(
                         customer => {
                             this.customerId = customer.id;
                             console.log('Created customer id ' + this.customerId);
-                        //console.log('this.countries.length=' + this.countries.length);
-                        //console.log('this.countries[12].name=' + this.countries[12].name);
-                    }, //Bind to view
+                        // console.log('this.countries.length=' + this.countries.length);
+                        // console.log('this.countries[12].name=' + this.countries[12].name);
+                    }, // Bind to view
     
                             error =>{ this.errorMessage = <any>error, console.log('Error while creating customer ' + this.errorMessage)
                     })
-                    //.subscribe( customer => this.customerId = customer.id,
+                    // .subscribe( customer => this.customerId = customer.id,
                     //            error => this.errorMessage = <any>error
                     //           );
         } else {
@@ -143,13 +143,13 @@ export class CustomerComponent implements OnInit {
                     this.customerId = customer.id;
 
                     console.log('Saved customer id ' + this.customerId);
-                //console.log('this.countries.length=' + this.countries.length);
-                //console.log('this.countries[12].name=' + this.countries[12].name);
-            }, //Bind to view
+                // console.log('this.countries.length=' + this.countries.length);
+                // console.log('this.countries[12].name=' + this.countries[12].name);
+            }, // Bind to view
 
                     error =>{ this.errorMessage = <any>error, console.log('Error while saving customer ' + this.errorMessage)
             })
-            //.subscribe( customer => this.customerId = customer.id,
+            // .subscribe( customer => this.customerId = customer.id,
             //            error => this.errorMessage = <any>error
             //           );
         }
@@ -165,7 +165,7 @@ export class CustomerComponent implements OnInit {
                 this.selectedZone = new Zone(customer.zone, customer.zone);
                 this.customerId = customer.id;
 
-            }, //Bind to view
+            }, // Bind to view
                         err => {
                     // Log errors if any
                     console.log(err);

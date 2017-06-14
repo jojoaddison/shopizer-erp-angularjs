@@ -1,0 +1,9 @@
+.tags {
+  max-width : 30px; 
+  white-space : nowrap;
+  overflow : hidden;
+}
+
+.tags:hover {
+  max-width : initial; 
+}
