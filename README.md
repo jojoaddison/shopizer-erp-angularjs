@@ -20,7 +20,7 @@ At the root of shopizer-admin-ui type the following commands
 
 npm install
 
-bg build
+ng build
 
 
 Run services:
